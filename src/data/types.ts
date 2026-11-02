@@ -26,6 +26,13 @@ export interface TierInfo {
   fotoBulat?: boolean;
 }
 
+/** Add-on per kotak, dipilih di detail menu. */
+export interface AddOn {
+  id: string;
+  nama: string;
+  harga: number; // per kotak
+}
+
 export interface Ketentuan {
   judul: string;
   isi: string;
@@ -54,7 +61,12 @@ export interface Settings {
   langkahOrder: { judul: string; teks: string }[];
   caraOrderIntro: string;
   jumatBerkah: { eyebrow: string; judul: string; paragraf: string[]; stiker: string[] };
-  tambahan: { nama: string; harga: string; satuan: string };
+  addOns: AddOn[];
+  checkout: {
+    dpPersen: number; // DP dari total pesanan (tanpa ongkir)
+    metodeBayar: string[]; // pilihan saja, tidak ada pembayaran di website
+    catatanBayar: string;
+  };
   testimoni: { teks: string; nama: string }[]; // kosong = kartu placeholder
   instagramFoto: { src: string; alt: string }[];
   footerInfo: string[];
@@ -63,7 +75,7 @@ export interface Settings {
     menu: string; // placeholder {nama} dan {tingkat}
     jumatBerkah: string;
     custom: string;
-    /** pembuka pesan checkout keranjang */
+    /** pembuka pesan invoice keranjang */
     checkout: string;
   };
 }

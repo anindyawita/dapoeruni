@@ -1,36 +1,55 @@
 import { getMenuById } from "../data/source";
-import { clampQty, type CartLine } from "./cart";
+import { clampQty, lineKey, normalAddOns, type CartLine } from "./cart";
 
 /**
  * Penyimpanan keranjang di luar React (dipakai lewat useSyncExternalStore).
- * Data hanya disimpan di localStorage browser pengunjung.
+ * Hanya isi keranjang (menu, add-on, jumlah) yang disimpan di localStorage browser.
+ * Data diri pemesan TIDAK disimpan.
  */
 export interface CartData {
   lines: CartLine[];
-  tanggal: string;
-  catatan: string;
 }
 
-const KEY = "dapoeruni:keranjang:v1";
-const EMPTY: CartData = { lines: [], tanggal: "", catatan: "" };
+const KEY = "dapoeruni:keranjang:v2";
+const KEY_LAMA = "dapoeruni:keranjang:v1";
+const EMPTY: CartData = { lines: [] };
 
 let state: CartData = EMPTY;
 let loaded = false;
 const listeners = new Set<() => void>();
 
+function parse(raw: string | null): CartData {
+  if (!raw) return EMPTY;
+  const d = JSON.parse(raw) as { lines?: unknown };
+  const byKey = new Map<string, CartLine>();
+  for (const l of Array.isArray(d.lines) ? d.lines : []) {
+    if (!l || typeof l !== "object") continue;
+    const { id, qty, checked, addOns } = l as Partial<CartLine>;
+    if (typeof id !== "string" || !getMenuById(id)) continue;
+    const ao = normalAddOns(Array.isArray(addOns) ? addOns.filter((x): x is string => typeof x === "string") : []);
+    const key = lineKey(id, ao);
+    const prev = byKey.get(key);
+    byKey.set(key, {
+      key,
+      id,
+      addOns: ao,
+      qty: clampQty((prev?.qty ?? 0) + (typeof qty === "number" ? qty : 1)),
+      checked: checked !== false,
+    });
+  }
+  return { lines: [...byKey.values()] };
+}
+
 function read(): CartData {
   try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) return EMPTY;
-    const d = JSON.parse(raw) as Partial<CartData>;
-    const lines = (Array.isArray(d.lines) ? d.lines : [])
-      .filter((l): l is CartLine => !!l && typeof l.id === "string" && !!getMenuById(l.id))
-      .map((l) => ({ id: l.id, qty: clampQty(l.qty), checked: l.checked !== false }));
-    return {
-      lines,
-      tanggal: typeof d.tanggal === "string" ? d.tanggal : "",
-      catatan: typeof d.catatan === "string" ? d.catatan : "",
-    };
+    const now = window.localStorage.getItem(KEY);
+    if (now) return parse(now);
+    const lama = window.localStorage.getItem(KEY_LAMA); // format lama (tanpa add-on)
+    if (lama) {
+      window.localStorage.removeItem(KEY_LAMA); // juga membuang tanggal/catatan lama
+      return parse(lama);
+    }
+    return EMPTY;
   } catch {
     return EMPTY; // storage diblokir / data rusak: mulai kosong
   }

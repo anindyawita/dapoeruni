@@ -1,22 +1,83 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
-import { getDeskripsi, getSettings, getTierInfo, type MenuItem } from "../data/source";
-import { hargaSatuan, useCart } from "../lib/cart";
+import { useEffect, useId, useRef, useState } from "react";
+import { getAddOns, getDeskripsi, getSettings, getTierInfo, type MenuItem } from "../data/source";
+import { addOnPerKotak, hargaDasar, useCart } from "../lib/cart";
 import { formatRupiah, inisial } from "../lib/format";
 import { useFocusTrap } from "../lib/focus-trap";
 import { dur, ease } from "../lib/motion";
 import { external, waMenu } from "../lib/whatsapp";
-import { BasketIcon, CheckIcon, CloseIcon, WhatsAppIcon } from "./icons";
+import { BasketIcon, CheckIcon, ChevronIcon, CloseIcon, WhatsAppIcon } from "./icons";
 import { QtyStepper } from "./QtyStepper";
 
+/** Pilihan add-on: tombol buka/tutup, lalu daftar yang bisa dicentang. */
+function AddOnPicker({ value, onChange }: { value: string[]; onChange: (ids: string[]) => void }) {
+  const [open, setOpen] = useState(false);
+  const reduce = useReducedMotion();
+  const listId = useId();
+  const boxRef = useRef<HTMLDivElement>(null);
+  // saat dibuka, gulir panel supaya seluruh daftar terlihat (tidak tertutup tombol beli di HP)
+  useEffect(() => {
+    if (!open) return;
+    const t = window.setTimeout(() => boxRef.current?.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" }), 60);
+    return () => window.clearTimeout(t);
+  }, [open, reduce]);
+  const addOns = getAddOns();
+  const perKotak = addOnPerKotak(value);
+  const toggle = (id: string) => onChange(value.includes(id) ? value.filter((x) => x !== id) : [...value, id]);
+
+  return (
+    <div ref={boxRef} className={`addon${open ? " is-open" : ""}`}>
+      <button type="button" className="addon__toggle" aria-expanded={open} aria-controls={listId} onClick={() => setOpen((o) => !o)}>
+        <span className="addon__title">Tambah add-on</span>
+        <span className="addon__meta">
+          {value.length ? `${value.length} dipilih · +${formatRupiah(perKotak)}/kotak` : "Opsional"}
+        </span>
+        <ChevronIcon className="icon addon__chev" />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.ul
+            id={listId}
+            className="addon__list"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: reduce ? 0.15 : dur.fast, ease }}
+          >
+            {addOns.map((a) => {
+              const on = value.includes(a.id);
+              return (
+                <li key={a.id}>
+                  <label className={`addon__item${on ? " is-on" : ""}`}>
+                    <input type="checkbox" checked={on} onChange={() => toggle(a.id)} />
+                    <span className="cl__box" aria-hidden="true">
+                      <CheckIcon />
+                    </span>
+                    <span className="addon__name">{a.nama}</span>
+                    <span className="addon__price">+{formatRupiah(a.harga)}</span>
+                  </label>
+                </li>
+              );
+            })}
+            <li className="addon__note">Harga add-on dihitung per kotak.</li>
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function DetailPanel({ item }: { item: MenuItem }) {
-  const { lines, upsert, setDetail } = useCart();
+  const { lines, add, setDetail } = useCart();
   const reduce = useReducedMotion();
   const s = getSettings();
   const tier = getTierInfo(item.tier);
-  const existing = lines.find((l) => l.id === item.id);
-  const [qty, setQty] = useState(existing?.qty ?? item.minimalOrder);
-  const satuan = hargaSatuan(item, qty);
+  const diKeranjang = lines.filter((l) => l.id === item.id).reduce((n, l) => n + l.qty, 0);
+  const [qty, setQty] = useState(item.minimalOrder);
+  const [addOns, setAddOns] = useState<string[]>([]);
+  const dasar = hargaDasar(item, qty);
+  const tambah = addOnPerKotak(addOns);
+  const satuan = dasar === null ? null : dasar + tambah;
   const closeRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const close = () => setDetail(null);
@@ -113,6 +174,8 @@ function DetailPanel({ item }: { item: MenuItem }) {
             <li>Ongkir via GoFood sesuai jarak, belum termasuk harga.</li>
           </ul>
 
+          <AddOnPicker value={addOns} onChange={setAddOns} />
+
           <div className="detail__buy">
             <div className="detail__qty">
               <span>Jumlah kotak</span>
@@ -120,21 +183,27 @@ function DetailPanel({ item }: { item: MenuItem }) {
             </div>
             {satuan !== null && (
               <p className="detail__subtotal">
+                {tambah > 0 && (
+                  <span className="detail__calc">
+                    {formatRupiah(dasar ?? 0)} + add-on {formatRupiah(tambah)} = {formatRupiah(satuan)}/kotak ·{" "}
+                  </span>
+                )}
                 Subtotal <strong>{formatRupiah(satuan * qty)}</strong>
-                {satuan !== item.harga && <span> · harga 20+</span>}
+                {dasar !== item.harga && <span> · harga 20+</span>}
               </p>
             )}
             <button
               type="button"
               className="pill pill--gold pill--block"
               onClick={() => {
-                upsert(item.id, qty);
+                add(item.id, qty, addOns);
                 close();
               }}
             >
               <BasketIcon />
-              {existing ? "Perbarui keranjang" : "Masukkan keranjang"}
+              Masukkan keranjang
             </button>
+            {diKeranjang > 0 && <p className="detail__incart">Sudah di keranjang: {diKeranjang} kotak</p>}
             <a className="detail__wa" href={waMenu(item)} {...external}>
               <WhatsAppIcon />
               Tanya menu ini via WhatsApp

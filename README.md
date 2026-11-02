@@ -1,6 +1,6 @@
 # Dapoer Uni: web katalog
 
-Web katalog nasi kotak **Dapoer Uni**, katering rumahan halal di Surabaya. Pengunjung bisa melihat menu, memasukkan menu ke keranjang, lalu checkout lewat WhatsApp.
+Web katalog nasi kotak **Dapoer Uni**, katering rumahan halal di Surabaya. Pengunjung bisa melihat menu, memilih add-on, memasukkan ke keranjang, mengisi data diri (DP 50% dihitung otomatis), lalu mengirim invoice lewat WhatsApp. Tidak ada pembayaran di website.
 
 - Beranda: `/`
 - Katalog lengkap: `/menu`
@@ -26,6 +26,7 @@ npm run lint
 
 - **Menu & harga**: `src/data/menu.ts`
 - **Teks, nomor WA, ketentuan order, pesan WhatsApp**: `src/data/settings.ts`
+- **Add-on & harganya, persentase DP, metode bayar**: `addOns` dan `checkout` di `src/data/settings.ts`
 - **Warna & font**: blok `@theme` di `src/index.css`
 - **Foto menu**: simpan `public/images/menu/{slug}-400.webp` (persegi 400×400), lalu isi `foto: "{slug}"` pada menu tersebut.
 

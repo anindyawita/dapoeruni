@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useSyncExternalStore, type Ref } from "react";
 import { getMenu, getSettings, getTierInfo, TIER_ORDER, type MenuItem, type Tier } from "../data/source";
+import { formatRupiah } from "../lib/format";
 import { container, dur, ease } from "../lib/motion";
 import { CustomPackage } from "./CustomPackage";
 import { MenuCard } from "./MenuCard";
@@ -78,11 +79,17 @@ export function MenuGrid() {
         </AnimatePresence>
         <motion.div layout={reduce ? false : "position"} transition={{ layout: { duration: dur.base, ease } }}>
           <div className="extra">
-            <span className="extra__tag">Tambahan</span>
-            <p>{s.tambahan.nama}</p>
-            <span className="extra__price">
-              {s.tambahan.harga} <small>{s.tambahan.satuan}</small>
-            </span>
+            <div className="extra__head">
+              <span className="extra__tag">Add-on</span>
+              <p>Bisa ditambahkan ke menu apa saja, harga per kotak. Pilih di detail menu.</p>
+            </div>
+            <ul className="extra__list">
+              {s.addOns.map((a) => (
+                <li key={a.id}>
+                  {a.nama} <strong>+{formatRupiah(a.harga)}</strong>
+                </li>
+              ))}
+            </ul>
           </div>
           <CustomPackage compact />
         </motion.div>

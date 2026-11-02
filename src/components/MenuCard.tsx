@@ -8,8 +8,8 @@ import { ArrowIcon, BasketIcon, CheckIcon } from "./icons";
 export function MenuCard({ item }: { item: MenuItem }) {
   const tier = getTierInfo(item.tier);
   const reduce = useReducedMotion();
-  const { lines, upsert, setDetail, setDrawerOpen } = useCart();
-  const inCart = lines.find((l) => l.id === item.id);
+  const { lines, add, setDetail, setDrawerOpen } = useCart();
+  const inCart = lines.filter((l) => l.id === item.id).reduce((n, l) => n + l.qty, 0);
 
   return (
     <motion.article
@@ -70,16 +70,16 @@ export function MenuCard({ item }: { item: MenuItem }) {
           <p className="price20">{formatRupiah(item.harga20plus)} untuk 20+ kotak</p>
         )}
         <p className="min">Min. {item.minimalOrder} kotak</p>
-        {inCart ? (
+        {inCart > 0 ? (
           <button type="button" className="pill pill--dark pill--sm pill--block card__btn" onClick={() => setDrawerOpen(true)}>
             <CheckIcon />
-            Di keranjang · {inCart.qty} kotak
+            Di keranjang · {inCart} kotak
           </button>
         ) : (
           <button
             type="button"
             className="pill pill--gold pill--sm pill--block card__btn"
-            onClick={() => upsert(item.id, item.minimalOrder)}
+            onClick={() => add(item.id, item.minimalOrder, [])}
           >
             <BasketIcon />
             Masukkan keranjang

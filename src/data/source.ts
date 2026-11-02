@@ -4,9 +4,9 @@
 // dengan fallback ke data lokal bila gagal dimuat.
 import { menu } from "./menu";
 import { settings } from "./settings";
-import type { MenuItem, Settings, Tier, TierInfo } from "./types";
+import type { AddOn, MenuItem, Settings, Tier, TierInfo } from "./types";
 
-export type { Ketentuan, MenuItem, Settings, Tier, TierInfo } from "./types";
+export type { AddOn, Ketentuan, MenuItem, Settings, Tier, TierInfo } from "./types";
 
 export const TIER_ORDER: Tier[] = ["hemat", "rakyat", "juragan", "sultan"];
 
@@ -30,6 +30,14 @@ export interface TierSummary extends TierInfo {
   min: number | null;
   max: number | null;
   jumlah: number;
+}
+
+export function getAddOns(): AddOn[] {
+  return settings.addOns;
+}
+
+export function getAddOn(id: string): AddOn | undefined {
+  return settings.addOns.find((a) => a.id === id);
 }
 
 export function getMenuById(id: string): MenuItem | undefined {

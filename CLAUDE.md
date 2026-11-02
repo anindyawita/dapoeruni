@@ -4,13 +4,19 @@
 
 Web katalog dua halaman untuk **Dapoer Uni**, katering rumahan halal berbasis cloud kitchen di Surabaya. Tujuan utama: **membuat pengunjung langsung chat WhatsApp untuk pesan**.
 
-- Ada **keranjang** sederhana: pengunjung memasukkan menu, mencentang yang mau dipesan, lalu **checkout via WhatsApp** (pesan otomatis berisi daftar pesanan). Tidak ada pembayaran online, akun, atau backend.
+- Ada **keranjang + checkout bertahap**: pengunjung memilih menu (boleh dengan **add-on**), mencentang yang mau dipesan, mengisi **data diri** (nama, WA, alamat, tanggal acara, metode bayar **tunai/non-tunai**), melihat **DP 50%** yang dihitung otomatis, lalu **invoice** dikirim ke WhatsApp Dapoer Uni.
+- **Tidak ada pembayaran di website** (tidak ada QRIS, payment gateway, transfer otomatis, dsb.) demi keamanan. Pembayaran DP dikonfirmasi admin lewat WhatsApp. Tidak ada akun dan tidak ada backend.
 - Instagram: `@dapoerunisurabaya`
 - Nomor WhatsApp: `6285733045249` (format internasional, tanpa `+` dan tanpa spasi)
 - Bahasa seluruh konten: **Bahasa Indonesia**, gaya santai tapi sopan
 - Pengunjung utama: perempuan 25–54 tahun di Surabaya Raya yang memesan untuk acara (arisan, syukuran, pengajian, rapat kantor) dan donatur Jumat Berkah. Mayoritas membuka dari **HP**, biasanya dari link bio Instagram.
 
 Tahap sekarang: **frontend saja**. Data menu disimpan di file lokal. Nanti data akan dibaca dari Google Sheets (CSV yang dipublikasikan), jadi lapisan data dibuat terpisah dan mudah diganti.
+
+## Cara kerja dengan pemilik
+
+- **Jangan membuat rekaman layar / video** kecuali pemilik memintanya. Screenshot untuk pengecekan boleh.
+- Harga, add-on, dan teks bisnis hanya dari pemilik. Kalau ada yang belum jelas, tanyakan, jangan mengarang.
 
 ## Aturan gaya penulisan
 
@@ -59,10 +65,11 @@ src/
     settings.ts            # semua teks bisnis, kontak, pesan WA
     source.ts              # getMenu(), getSettings(), dll. Satu-satunya pintu data
   lib/
-    whatsapp.ts            # link wa.me + pesan otomatis (umum, menu, Jumat Berkah, custom, checkout)
+    whatsapp.ts            # link wa.me + pesan otomatis (umum, menu, Jumat Berkah, custom, invoice)
+    invoice.ts             # nomor invoice, isi pesan invoice, pembersih isian
     format.ts              # Rupiah, rentang harga, tanggal, inisial
-    cart.ts                # tipe keranjang, harga 20+, ringkasan & validasi minimal order
-    cart-store.ts          # simpan keranjang di localStorage (useSyncExternalStore)
+    cart.ts                # tipe keranjang (menu + add-on), harga 20+, ringkasan, DP, validasi minimal order
+    cart-store.ts          # simpan isi keranjang di localStorage (tanpa data diri)
     motion.ts              # token gerak
     smooth-scroll.ts       # konteks Lenis, useAnchorClick, useMediaQuery
     focus-trap.ts          # kunci fokus keyboard di panel
@@ -121,7 +128,17 @@ Kolom ini akan sama dengan kolom Google Sheets nanti: `tingkat, nama, isi, harga
 | sultan | Sultan Empal | Nasi, empal daging, ayam goreng, sambal goreng kentang, oseng buncis, kerupuk, puding | 30.000 |
 | sultan | Nasi Kuning Sultan | Nasi kuning, ayam goreng, telur balado, kering tempe, serundeng daging, sambal goreng kentang, kerupuk, buah | 25.000 |
 | sultan | Bento Sultan (label "Untuk acara anak") | Nasi bento, ayam katsu/nugget, sosis, telur gulung, sayur, puding | 22.000 |
-| tambahan | Telur / tempe / kerupuk / sambal ekstra | per item | +1.000–2.000 |
+
+**Add-on** (harga per kotak, bisa ditambahkan ke menu apa saja, ada di `settings.addOns`):
+
+| Add-on | Harga |
+|---|---|
+| Air putih gelas | +1.000 |
+| Kerupuk udang | +2.000 |
+| Kerupuk Finna | +2.000 |
+| Perkedel | +3.000 |
+| Peyek | +3.000 |
+| Air putih 600 ml | +5.000 |
 
 Jangan mengarang harga. Menu baru tanpa harga diisi `null` sehingga tampil "Harga menyusul".
 
@@ -141,6 +158,8 @@ Rentang harga per tingkat di beranda dihitung otomatis dari data menu (`getTierS
 - **Pesan paling lambat H-3.**
 - Halal, masakan rumahan, dimasak sesuai pesanan.
 - **Paket Custom**: pelanggan menyebutkan budget, Dapoer Uni bantu menyesuaikan isi kotak.
+- **Add-on** dihitung per kotak: harga per kotak = harga menu + total add-on yang dipilih.
+- **DP 50%** dari total pesanan (belum termasuk ongkir), sisanya pelunasan. Metode bayar dipilih pelanggan: Tunai atau Non-tunai. Cara bayar dikonfirmasi admin lewat WhatsApp.
 - Kemasan sekarang **tidak memakai sterofoam**. Jangan memakai foto bersterofoam.
 
 Semua teks ini ada di `settings.ts`, bukan di komponen.
@@ -153,14 +172,19 @@ Semua link membuka `https://wa.me/6285733045249?text=<pesan>` (di-`encodeURIComp
 - Per menu (panel detail, "Tanya menu ini via WhatsApp"): `Halo Dapoer Uni, saya lihat dari website. Mau pesan *{nama}* (Paket {Tingkat}) untuk ___ kotak, tanggal ___.`
 - Jumat Berkah: `Halo Dapoer Uni, saya lihat dari website. Mau pesan nasi Jumat Berkah ___ kotak untuk Jumat tanggal ___.`
 - Paket Custom: `Halo Dapoer Uni, saya lihat dari website. Mau pesan paket custom dengan budget Rp___ per kotak untuk ___ kotak, tanggal ___.`
-- Checkout keranjang (`waCheckout`): pembuka `Halo Dapoer Uni, saya lihat dari website. Mau pesan:`, lalu per tingkat daftar `- {nama}: {qty} kotak, {qty} x Rp{harga} = Rp{subtotal}` (ditandai "(harga 20+)" bila berlaku), total kotak & harga "(belum termasuk ongkir GoFood)", tanggal acara, dan catatan.
+- Invoice keranjang (`waInvoice`, isi dari `teksInvoice()` di `lib/invoice.ts`): pembuka `Halo Dapoer Uni, saya lihat dari website. Berikut invoice pesanan saya:`, nomor invoice (`DU-YYMMDD-XXXX`, dibuat di browser), data pemesan, daftar pesanan bernomor (menu, paket, jumlah kotak, add-on beserta harganya, rincian harga per kotak, subtotal), total, DP 50%, sisa pelunasan, metode pembayaran, keterangan ongkir, dan catatan.
 
-## Keranjang
+## Keranjang & checkout
 
-- Kartu menu: klik di mana saja membuka **panel detail** (penjelasan, isi kotak, harga, ketentuan, pilih jumlah, "Masukkan keranjang"). Tombol kartu "Masukkan keranjang" langsung menambah `minimalOrder` kotak; setelah masuk, tombol berubah menjadi "Di keranjang · N kotak".
-- **Laci keranjang**: setiap menu punya kotak centang (hanya yang dicentang ikut checkout), pengatur jumlah, hapus; ada isian tanggal acara (minimal H-3) dan catatan.
-- Validasi: total kotak yang dicentang **per tingkat** minimal 10. Bila kurang, tombol checkout nonaktif dan muncul alasan ("Paket Hemat kurang 4 kotak lagi ...").
-- Keranjang disimpan di `localStorage` browser pengunjung (`dapoeruni:keranjang:v1`), tetap ada saat pindah halaman. Tidak ada data yang dikirim ke server.
+- **Detail menu** (klik kartu): penjelasan, isi kotak, harga, ketentuan, lalu **"Tambah add-on"**: tombol buka/tutup berisi daftar add-on yang bisa dicentang beserta harganya. Pilih jumlah kotak, subtotal dihitung langsung, lalu "Masukkan keranjang".
+- Tombol kartu "Masukkan keranjang" menambah `minimalOrder` kotak **tanpa add-on**. Setelah masuk, tombol berubah menjadi "Di keranjang · N kotak".
+- **Satu baris keranjang = menu + kombinasi add-on** (`key = id|addon1,addon2`). Menu sama dengan add-on berbeda menjadi baris terpisah; kombinasi yang sama digabung jumlahnya.
+- **Harga 20+** dihitung dari total kotak menu tersebut (gabungan semua varian add-on yang dicentang).
+- Laci keranjang punya 3 langkah:
+  1. **Keranjang**: centang baris yang ikut checkout, atur jumlah, hapus. Validasi minimal 10 kotak **per tingkat**; bila kurang, tombol lanjut nonaktif dan alasannya tampil.
+  2. **Data diri**: nama*, No. WhatsApp*, alamat pengiriman*, tanggal acara* (minimal H-3), jam (opsional), metode pembayaran* (Tunai / Non-tunai), catatan. Ringkasan total, **DP 50%**, dan sisa pelunasan tampil otomatis. Validasi + fokus ke isian pertama yang salah.
+  3. **Invoice**: tampilan invoice bernomor, tombol "Kirim invoice ke WhatsApp", lalu "Selesai & kosongkan keranjang".
+- **Privasi & keamanan**: hanya isi keranjang (menu, add-on, jumlah) yang disimpan di `localStorage` (`dapoeruni:keranjang:v2`). **Data diri hanya di memori** (hilang saat halaman ditutup), tidak dikirim ke server mana pun, hanya masuk ke pesan WhatsApp. Isian dibatasi panjangnya dan dibersihkan dari karakter kontrol.
 - Bar keranjang muncul di bawah layar saat keranjang berisi; tombol WA mengambang disembunyikan selama bar keranjang tampil.
 
 ## Arah desain
@@ -230,7 +254,7 @@ Aturan performa:
 
 **Beranda (`/`)**
 1. Header: logo bulat, pil Menu · Tentang · Jumat Berkah · Kontak, pil emas "Chat WA". Di HP: satu pil "Menu" yang membuka menu layar penuh.
-2. Hero: meja ubin espresso, kotak kraft, tumpeng & rice bowl, "Dapoer *Uni*", stiker "Surabaya · Katering rumahan", subjudul, tombol "Lihat Menu" & "Chat WA".
+2. Hero: meja ubin espresso. Teks di kiri ("Dapoer", subjudul 2 baris, tombol "Lihat Menu" & "Chat WA"), "*Uni*" emas dan stiker "Surabaya · Katering rumahan" di **kanan**. Tiga foto pilihan pemilik berjajar di bawah: rice bowl (kiri), nasi kotak kraft (tengah, paling besar), tumpeng nasi kuning (kanan, alasnya menempel di tepi bawah). Di HP: teks di atas, tumpeng di tengah-belakang (kerucut berlabel terlihat), kotak depan-kiri, mangkuk depan-kanan.
 3. Paket Nasi Kotak: 4 lingkaran tingkat dengan label "Paket X · Rp...–...", tombol "Lihat semua menu", lalu banner **Paket Custom**.
 4. Tentang Kami: cerita besar + "Rumahan. Halal. Sesuai Budget." + foto melengkung bertag + 3 kartu nilai.
 5. Jumat Berkah (blok gelap): penjelasan + tombol WA khusus. Jangan menulis angka penerima/masjid.
@@ -260,6 +284,7 @@ Aturan performa:
 - Sumber: folder Google Drive pemilik. Foto sudah diberi color grading hangat + sharpening, beberapa dihapus latarnya, dan disimpan sebagai WebP dalam beberapa ukuran (`-320`, `-480`, dst.) untuk `srcset`.
 - Pasangan foto per menu saat ini (mohon dikonfirmasi pemilik): Ayam Krispi Mini, Rice Bowl, Nasi Campur, Sultan Panggang, Nasi Kuning Sultan, Bento Sultan. Menu lain memakai placeholder inisial.
 - Untuk menambah foto menu: simpan `public/images/menu/{slug}-400.webp` (persegi 400×400) lalu isi `foto: "{slug}"` di `menu.ts`.
+- Foto hero (pilihan pemilik): `20240512_120328.jpg` (nasi kotak kraft), `IMG-20240607-WA0035.jpg` (tumpeng), `IMG-20241003-WA0011.jpg` (rice bowl). Latar dihapus dengan BiRefNet (+ GrabCut untuk tumpeng), tepi dirapikan, disimpan di `public/images/hero/`.
 
 ## Kualitas
 
@@ -279,6 +304,7 @@ Aturan performa:
 - Menaruh nomor WA sebagai teks biasa di banyak tempat; ambil dari `settings.ts`.
 - Em dash.
 - Foto kemasan sterofoam.
+- Pembayaran di website (QRIS, payment gateway, dsb.) dan penyimpanan data diri pelanggan.
 
 ## Tahap berikutnya (jangan dikerjakan kecuali diminta)
 
@@ -292,6 +318,6 @@ Aturan performa:
 - `npm run build` sukses tanpa error TypeScript, dan `npm run lint` bersih.
 - Kedua halaman rapi di 360px dan 1440px, tanpa scroll horizontal.
 - Filter tingkat berfungsi, beranimasi halus, tercermin di URL hash.
-- Detail menu, keranjang (centang, jumlah, validasi minimal 10 per tingkat), dan checkout WA menghasilkan pesan yang benar.
+- Detail menu + add-on, keranjang (baris per kombinasi add-on, centang, jumlah, validasi minimal 10 per tingkat), data diri, DP 50%, dan invoice WA menghasilkan pesan yang benar.
 - Semua efek motion berjalan mulus dan mati dengan benar saat `prefers-reduced-motion` aktif.
 - Tidak ada konten palsu dan tidak ada em dash.

@@ -109,7 +109,22 @@ export const settings: Settings = {
     stiker: ["Rumahan", "Halal", "Berkah"],
   },
 
-  tambahan: { nama: "Telur / tempe / kerupuk / sambal ekstra", harga: "+Rp1.000–2.000", satuan: "per item" },
+  // Harga add-on dari pemilik, dihitung per kotak.
+  addOns: [
+    { id: "air-gelas", nama: "Air putih gelas", harga: 1000 },
+    { id: "kerupuk-udang", nama: "Kerupuk udang", harga: 2000 },
+    { id: "kerupuk-finna", nama: "Kerupuk Finna", harga: 2000 },
+    { id: "perkedel", nama: "Perkedel", harga: 3000 },
+    { id: "peyek", nama: "Peyek", harga: 3000 },
+    { id: "air-600", nama: "Air putih 600 ml", harga: 5000 },
+  ],
+
+  checkout: {
+    dpPersen: 50,
+    metodeBayar: ["Tunai", "Non-tunai"],
+    catatanBayar:
+      "Belum ada pembayaran di website. Setelah invoice dikirim, admin Dapoer Uni akan mengonfirmasi pesanan, ongkir, dan cara pembayaran DP lewat WhatsApp.",
+  },
 
   // Isi hanya dengan testimoni asli pelanggan yang sudah memberi izin.
   testimoni: [],
@@ -132,6 +147,6 @@ export const settings: Settings = {
       "Halo Dapoer Uni, saya lihat dari website. Mau pesan nasi Jumat Berkah ___ kotak untuk Jumat tanggal ___.",
     custom:
       "Halo Dapoer Uni, saya lihat dari website. Mau pesan paket custom dengan budget Rp___ per kotak untuk ___ kotak, tanggal ___.",
-    checkout: "Halo Dapoer Uni, saya lihat dari website. Mau pesan:",
+    checkout: "Halo Dapoer Uni, saya lihat dari website. Berikut invoice pesanan saya:",
   },
 };
