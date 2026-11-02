@@ -44,7 +44,7 @@ export interface Settings {
   whatsapp: string; // format internasional tanpa "+" dan spasi
   instagram: string; // tanpa "@"
   tiers: TierInfo[];
-  hero: { subjudul: string; stiker: string };
+  hero: { subjudul: string };
   paket: { judul: string; intro: string };
   menuPage: { judul: string; intro: string };
   nilai: string[];

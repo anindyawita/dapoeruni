@@ -43,7 +43,6 @@ export const settings: Settings = {
 
   hero: {
     subjudul: "Katering rumahan halal · min. 10 kotak · order H-3",
-    stiker: "Surabaya · Katering rumahan",
   },
 
   paket: {
