@@ -254,7 +254,7 @@ Aturan performa:
 
 **Beranda (`/`)**
 1. Header: logo bulat, pil Menu · Tentang · Jumat Berkah · Kontak, pil emas "Chat WA". Di HP: satu pil "Menu" yang membuka menu layar penuh.
-2. Hero: meja ubin espresso. Teks di kiri ("Dapoer", subjudul 2 baris, tombol "Lihat Menu" & "Chat WA"), "*Uni*" emas dan stiker "Surabaya · Katering rumahan" di **kanan**. Tiga foto pilihan pemilik berjajar di bawah: rice bowl (kiri), nasi kotak kraft (tengah, paling besar), tumpeng nasi kuning (kanan, alasnya menempel di tepi bawah). Di HP: teks di atas, tumpeng di tengah-belakang (kerucut berlabel terlihat), kotak depan-kiri, mangkuk depan-kanan.
+2. Hero: tata letak acak ala referensi dengan tiga foto pilihan pemilik di atas meja ubin espresso: nasi kotak kraft di tengah (miring), tumpeng besar di kiri bawah (tepi foto yang terpotong sengaja di luar layar), rice bowl kecil di kanan atas. "Dapoer" di kiri atas; stiker "Surabaya · Katering rumahan" dan "*Uni*" emas di kanan; subjudul 2 baris + tombol "Lihat Menu" & "Chat WA" di kanan bawah. Tepi teks sejajar persis dengan isi header (kiri logo, kanan tombol Chat WA) di semua lebar desktop lewat `--wrap-l`, dan posisi foto dihitung supaya tidak menyentuh tulisan (dicek per piksel). Di HP: teks di tengah atas, mangkuk di kanan atas, kotak tengah-kanan, tumpeng di kiri bawah.
 3. Paket Nasi Kotak: 4 lingkaran tingkat dengan label "Paket X · Rp...–...", tombol "Lihat semua menu", lalu banner **Paket Custom**.
 4. Tentang Kami: cerita besar + "Rumahan. Halal. Sesuai Budget." + foto melengkung bertag + 3 kartu nilai.
 5. Jumat Berkah (blok gelap): penjelasan + tombol WA khusus. Jangan menulis angka penerima/masjid.
