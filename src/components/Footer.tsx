@@ -16,7 +16,7 @@ export function Footer() {
       <RevealGroup className="wrap">
         <RevealItem className="ftr__top">
           <a href="/" onClick={onAnchor} aria-label="Dapoer Uni, ke beranda" className="hdr__badge">
-            <Badge className="ftr__badge" variant="line" />
+            <Badge className="ftr__badge" />
           </a>
           <nav className="ftr__nav" aria-label="Navigasi footer">
             <a href="/menu" onClick={onAnchor}>Menu</a>
@@ -52,7 +52,7 @@ export function Footer() {
         </RevealItem>
         <div className="ftr__bottom">
           <span suppressHydrationWarning>
-            © {TAHUN} {s.namaBrand} · Katering rumahan halal {s.kota}
+            © {TAHUN} {s.namaBrand} · Katering untuk semua acara kamu
           </span>
           <a href="#top" onClick={onAnchor}>
             Kembali ke atas ↑

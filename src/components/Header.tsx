@@ -17,10 +17,9 @@ interface NavLink {
 }
 
 const desktopLinks: NavLink[] = [
+  { href: "/", label: "Home", page: "home" },
   { href: "/menu", label: "Menu", page: "menu" },
-  { href: "/#tentang", label: "Tentang" },
-  { href: "/#jumat-berkah", label: "Jumat Berkah" },
-  { href: "#kontak", label: "Kontak" },
+  { href: "/menu#cara-order", label: "Cara Order" },
 ];
 
 const mobileLinks: NavLink[] = [
@@ -43,6 +42,15 @@ export function Header({ page }: { page: PageId }) {
   const closeBtn = useRef<HTMLButtonElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   useFocusTrap(navRef, open);
+
+  // "" atau "#cara-order": penanda tombol nav yang aktif (coklat); lainnya putih
+  const [hash, setHash] = useState("");
+  useEffect(() => {
+    const on = () => setHash(window.location.hash === "#cara-order" ? "#cara-order" : "");
+    on();
+    window.addEventListener("hashchange", on);
+    return () => window.removeEventListener("hashchange", on);
+  }, []);
 
   const close = useCallback(() => setOpen(false), []);
   const onAnchor = useAnchorClick(close);
@@ -85,13 +93,17 @@ export function Header({ page }: { page: PageId }) {
           </a>
           <nav className="nav" aria-label="Navigasi utama">
             {desktopLinks.map((l) => {
-              const active = l.page === page;
+              const u = new URL(l.href, "http://x");
+              const active = u.pathname === (page === "home" ? "/" : "/menu") && u.hash === hash;
               return (
                 <a
                   key={l.href}
                   className={`pill${active ? " pill--dark" : ""}`}
                   href={l.href}
-                  onClick={onAnchor}
+                  onClick={(e) => {
+                    setHash(u.hash === "#cara-order" ? u.hash : "");
+                    onAnchor(e);
+                  }}
                   aria-current={active ? "page" : undefined}
                 >
                   {l.label}

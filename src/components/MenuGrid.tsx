@@ -1,13 +1,13 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useSyncExternalStore, type Ref } from "react";
-import { getMenu, getSettings, getTierInfo, TIER_ORDER, type MenuItem, type Tier } from "../data/source";
+import { CATALOG_ORDER, getMenu, getSettings, getTierInfo, type MenuItem, type Tier } from "../data/source";
 import { formatRupiah } from "../lib/format";
 import { container, dur, ease } from "../lib/motion";
 import { CustomPackage } from "./CustomPackage";
 import { MenuCard } from "./MenuCard";
 import { TierFilter, type Filter } from "./TierFilter";
 
-const HASH = /^#menu-(hemat|rakyat|juragan|sultan)$/;
+const HASH = /^#menu-(hemat|rakyat|juragan|sultan|tampah|tumpeng)$/;
 
 // hash URL sebagai "external store": aman untuk prerender (server = tanpa hash)
 const hashListeners = new Set<() => void>();
@@ -66,7 +66,7 @@ export function MenuGrid() {
     for (const l of hashListeners) l();
   }, []);
 
-  const tiers = TIER_ORDER.filter((t) => filter === "semua" || filter === t);
+  const tiers = CATALOG_ORDER.filter((t) => filter === "semua" || filter === t);
 
   return (
     <section className="catalog" id="katalog" aria-label="Katalog menu">

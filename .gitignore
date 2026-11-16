@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.venv
+
+# Secrets & env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.vercel
+
+# Local tooling
+.claude/settings.local.json
+coverage
+tstxt

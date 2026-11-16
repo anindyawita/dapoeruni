@@ -1,0 +1,583 @@
+[
+    {
+        "id": "telur-kriwil",
+        "tier": "hemat",
+        "nama": "Telur Kriwil",
+        "deskripsi": "Telur Kriwil termasuk Paket Hemat, pas untuk Jumat Berkah dan konsumsi ringan. Satu kotak berisi nasi, telur dadar kriwil, timun, dan sambal.",
+        "isi": [
+            "Nasi",
+            "telur dadar kriwil",
+            "timun",
+            "sambal"
+        ],
+        "harga": 10000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M",
+        "foto": {
+            "src": "/images/menu/telur-kriwil.webp",
+            "placeholder": true,
+            "inisial": "TK",
+            "alt": "Telur Kriwil Dapoer Uni: nasi, telur dadar kriwil, timun, dan sambal"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 1
+    },
+    {
+        "id": "nasi-kuning-hemat",
+        "tier": "hemat",
+        "nama": "Nasi Kuning Hemat",
+        "deskripsi": "Nasi Kuning Hemat termasuk Paket Hemat, pas untuk Jumat Berkah dan konsumsi ringan. Satu kotak berisi nasi kuning, telur dadar iris, kering tempe, serundeng, dan sambal.",
+        "isi": [
+            "Nasi kuning",
+            "telur dadar iris",
+            "kering tempe",
+            "serundeng",
+            "sambal"
+        ],
+        "harga": 11000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M",
+        "foto": {
+            "src": "/images/menu/nasi-kuning-hemat.webp",
+            "placeholder": true,
+            "inisial": "NK",
+            "alt": "Nasi Kuning Hemat Dapoer Uni: nasi kuning, telur dadar iris, kering tempe, serundeng, dan sambal"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 2
+    },
+    {
+        "id": "tahu-tempe-penyet",
+        "tier": "hemat",
+        "nama": "Tahu Tempe Penyet",
+        "deskripsi": "Tahu Tempe Penyet termasuk Paket Hemat, pas untuk Jumat Berkah dan konsumsi ringan. Satu kotak berisi nasi, tahu tempe penyet, lalapan, dan sambal bawang.",
+        "isi": [
+            "Nasi",
+            "tahu tempe penyet",
+            "lalapan",
+            "sambal bawang"
+        ],
+        "harga": 10000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M",
+        "foto": {
+            "src": "/images/menu/tahu-tempe-penyet.webp",
+            "placeholder": true,
+            "inisial": "TT",
+            "alt": "Tahu Tempe Penyet Dapoer Uni: nasi, tahu tempe penyet, lalapan, dan sambal bawang"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 3
+    },
+    {
+        "id": "ayam-krispi-mini",
+        "tier": "rakyat",
+        "nama": "Ayam Krispi Mini",
+        "deskripsi": "Ayam Krispi Mini termasuk Paket Rakyat, ada ayamnya, tetap ramah budget. Satu kotak berisi nasi, ayam krispi kecil, tempe, timun, dan sambal.",
+        "isi": [
+            "Nasi",
+            "ayam krispi kecil",
+            "tempe",
+            "timun",
+            "sambal"
+        ],
+        "harga": 12000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M (rice bowl pakai bowl)",
+        "foto": {
+            "src": "/images/menu/ayam-krispi-mini.webp",
+            "placeholder": true,
+            "inisial": "AK",
+            "alt": "Ayam Krispi Mini Dapoer Uni: nasi, ayam krispi kecil, tempe, timun, dan sambal"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 1
+    },
+    {
+        "id": "ayam-geprek",
+        "tier": "rakyat",
+        "nama": "Ayam Geprek",
+        "deskripsi": "Ayam Geprek termasuk Paket Rakyat, ada ayamnya, tetap ramah budget. Satu kotak berisi nasi, ayam geprek, lalapan, dan sambal bawang.",
+        "isi": [
+            "Nasi",
+            "ayam geprek",
+            "lalapan",
+            "sambal bawang"
+        ],
+        "harga": 12000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M (rice bowl pakai bowl)",
+        "foto": {
+            "src": "/images/menu/ayam-geprek.webp",
+            "placeholder": true,
+            "inisial": "AG",
+            "alt": "Ayam Geprek Dapoer Uni: nasi, ayam geprek, lalapan, dan sambal bawang"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 2
+    },
+    {
+        "id": "ayam-suwir",
+        "tier": "rakyat",
+        "nama": "Ayam Suwir",
+        "deskripsi": "Ayam Suwir termasuk Paket Rakyat, ada ayamnya, tetap ramah budget. Satu kotak berisi nasi putih, ayam suwir pedas manis, telur dadar iris, dan timun.",
+        "isi": [
+            "Nasi putih",
+            "ayam suwir pedas manis",
+            "telur dadar iris",
+            "timun"
+        ],
+        "harga": 13000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M (rice bowl pakai bowl)",
+        "foto": {
+            "src": "/images/menu/ayam-suwir.webp",
+            "placeholder": true,
+            "inisial": "AS",
+            "alt": "Ayam Suwir Dapoer Uni: nasi putih, ayam suwir pedas manis, telur dadar iris, dan timun"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 3
+    },
+    {
+        "id": "rice-bowl",
+        "tier": "rakyat",
+        "nama": "Rice Bowl",
+        "deskripsi": "Rice Bowl termasuk Paket Rakyat, ada ayamnya, tetap ramah budget. Satu kotak berisi nasi, ayam BBQ/teriyaki suwir, dan oseng sayur.",
+        "isi": [
+            "Nasi",
+            "ayam BBQ/teriyaki suwir",
+            "oseng sayur"
+        ],
+        "harga": 13000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box M (rice bowl pakai bowl)",
+        "foto": {
+            "src": "/images/menu/rice-bowl.webp",
+            "placeholder": true,
+            "inisial": "RB",
+            "alt": "Rice Bowl Dapoer Uni: nasi, ayam BBQ/teriyaki suwir, dan oseng sayur"
+        },
+        "label": null,
+        "catatan": "Disajikan dalam bowl.",
+        "tersedia": true,
+        "urutan": 5
+    },
+    {
+        "id": "nasi-kuning",
+        "tier": "juragan",
+        "nama": "Nasi Kuning",
+        "deskripsi": "Nasi Kuning termasuk Paket Juragan, lengkap untuk syukuran, pengajian, dan acara kantor. Satu kotak berisi nasi kuning, ayam krispi, mie, dan orek tempe.",
+        "isi": [
+            "Nasi kuning",
+            "ayam krispi",
+            "mie",
+            "orek tempe"
+        ],
+        "harga": 15000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box L atau bento bersekat",
+        "foto": {
+            "src": "/images/menu/nasi-kuning.webp",
+            "placeholder": true,
+            "inisial": "NK",
+            "alt": "Nasi Kuning Dapoer Uni: nasi kuning, ayam krispi, mie, dan orek tempe"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 1
+    },
+    {
+        "id": "ayam-panggang-bumbu-rujak",
+        "tier": "juragan",
+        "nama": "Ayam Panggang Bumbu Rujak",
+        "deskripsi": "Ayam Panggang Bumbu Rujak termasuk Paket Juragan, lengkap untuk syukuran, pengajian, dan acara kantor. Satu kotak berisi nasi, ayam panggang bumbu rujak, urap/oseng buncis wortel, timun, dan sambal.",
+        "isi": [
+            "Nasi",
+            "ayam panggang bumbu rujak",
+            "urap/oseng buncis wortel",
+            "timun",
+            "sambal"
+        ],
+        "harga": 17000,
+        "harga20plus": 15000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box L atau bento bersekat",
+        "foto": {
+            "src": "/images/menu/ayam-panggang-bumbu-rujak.webp",
+            "placeholder": true,
+            "inisial": "AP",
+            "alt": "Ayam Panggang Bumbu Rujak Dapoer Uni: nasi, ayam panggang bumbu rujak, urap/oseng buncis wortel, timun, dan sambal"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 2
+    },
+    {
+        "id": "ayam-kremes",
+        "tier": "juragan",
+        "nama": "Ayam Kremes",
+        "deskripsi": "Ayam Kremes termasuk Paket Juragan, lengkap untuk syukuran, pengajian, dan acara kantor. Satu kotak berisi nasi, ayam goreng kremes, tempe, lalapan, dan sambal.",
+        "isi": [
+            "Nasi",
+            "ayam goreng kremes",
+            "tempe",
+            "lalapan",
+            "sambal"
+        ],
+        "harga": 16000,
+        "harga20plus": 15000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box L atau bento bersekat",
+        "foto": {
+            "src": "/images/menu/ayam-kremes.webp",
+            "placeholder": true,
+            "inisial": "AK",
+            "alt": "Ayam Kremes Dapoer Uni: nasi, ayam goreng kremes, tempe, lalapan, dan sambal"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 3
+    },
+    {
+        "id": "ayam-penyet",
+        "tier": "juragan",
+        "nama": "Ayam Penyet",
+        "deskripsi": "Ayam Penyet termasuk Paket Juragan, lengkap untuk syukuran, pengajian, dan acara kantor. Satu kotak berisi nasi, ayam penyet, tahu/tempe, lalapan, dan sambal.",
+        "isi": [
+            "Nasi",
+            "ayam penyet",
+            "tahu/tempe",
+            "lalapan",
+            "sambal"
+        ],
+        "harga": 16000,
+        "harga20plus": 15000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box L atau bento bersekat",
+        "foto": {
+            "src": "/images/menu/ayam-penyet.webp",
+            "placeholder": true,
+            "inisial": "AP",
+            "alt": "Ayam Penyet Dapoer Uni: nasi, ayam penyet, tahu/tempe, lalapan, dan sambal"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 4
+    },
+    {
+        "id": "nasi-campur",
+        "tier": "juragan",
+        "nama": "Nasi Campur",
+        "deskripsi": "Nasi Campur termasuk Paket Juragan, lengkap untuk syukuran, pengajian, dan acara kantor. Satu kotak berisi nasi, ayam bumbu, oseng buncis wortel, mie/bihun, kering tempe, dan kerupuk.",
+        "isi": [
+            "Nasi",
+            "ayam bumbu",
+            "oseng buncis wortel",
+            "mie/bihun",
+            "kering tempe",
+            "kerupuk"
+        ],
+        "harga": 17000,
+        "harga20plus": 16000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box L atau bento bersekat",
+        "foto": {
+            "src": "/images/menu/nasi-campur.webp",
+            "placeholder": true,
+            "inisial": "NC",
+            "alt": "Nasi Campur Dapoer Uni: nasi, ayam bumbu, oseng buncis wortel, mie/bihun, kering tempe, dan kerupuk"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 5
+    },
+    {
+        "id": "ayam-panggang-urap-kotokan",
+        "tier": "sultan",
+        "nama": "Ayam Panggang Urap Kotokan",
+        "deskripsi": "Ayam Panggang Urap Kotokan termasuk Paket Sultan, untuk tamu istimewa dan acara besar. Satu kotak berisi nasi putih, ayam panggang bumbu rujak, urap-urap, dan tahu tempe kotokan.",
+        "isi": [
+            "Nasi putih",
+            "ayam panggang bumbu rujak",
+            "urap-urap",
+            "tahu tempe kotokan"
+        ],
+        "harga": 20000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box 18×18",
+        "foto": {
+            "src": "/images/menu/ayam-panggang-urap-kotokan.webp",
+            "placeholder": true,
+            "inisial": "AP",
+            "alt": "Ayam Panggang Urap Kotokan Dapoer Uni: nasi putih, ayam panggang bumbu rujak, urap-urap, dan tahu tempe kotokan"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 1
+    },
+    {
+        "id": "sultan-panggang",
+        "tier": "sultan",
+        "nama": "Sultan Panggang",
+        "deskripsi": "Sultan Panggang termasuk Paket Sultan, untuk tamu istimewa dan acara besar. Satu kotak berisi nasi, ayam panggang bumbu rujak potongan besar, urap, kerupuk, buah, dan air mineral.",
+        "isi": [
+            "Nasi",
+            "ayam panggang bumbu rujak potongan besar",
+            "urap",
+            "kerupuk",
+            "buah",
+            "air mineral"
+        ],
+        "harga": 25000,
+        "harga20plus": 23000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box 18×18",
+        "foto": {
+            "src": "/images/menu/sultan-panggang.webp",
+            "placeholder": true,
+            "inisial": "SP",
+            "alt": "Sultan Panggang Dapoer Uni: nasi, ayam panggang bumbu rujak potongan besar, urap, kerupuk, buah, dan air mineral"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 2
+    },
+    {
+        "id": "nasi-kuning-sultan-orek",
+        "tier": "sultan",
+        "nama": "Nasi Kuning Sultan Orek",
+        "deskripsi": "Nasi Kuning Sultan Orek termasuk Paket Sultan, untuk tamu istimewa dan acara besar. Satu kotak berisi nasi kuning, mie, ayam goreng/ayam panggang, orek tempe, dan kerupuk.",
+        "isi": [
+            "Nasi kuning",
+            "mie",
+            "ayam goreng/ayam panggang",
+            "orek tempe",
+            "kerupuk"
+        ],
+        "harga": 25000,
+        "harga20plus": 23000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box 18×18",
+        "foto": {
+            "src": "/images/menu/nasi-kuning-sultan-orek.webp",
+            "placeholder": true,
+            "inisial": "NK",
+            "alt": "Nasi Kuning Sultan Orek Dapoer Uni: nasi kuning, mie, ayam goreng/ayam panggang, orek tempe, dan kerupuk"
+        },
+        "label": null,
+        "catatan": "Pilih ayam goreng atau ayam panggang.",
+        "tersedia": true,
+        "urutan": 3
+    },
+    {
+        "id": "nasi-kuning-sultan-balado",
+        "tier": "sultan",
+        "nama": "Nasi Kuning Sultan Balado",
+        "deskripsi": "Nasi Kuning Sultan Balado termasuk Paket Sultan, untuk tamu istimewa dan acara besar. Satu kotak berisi nasi kuning, balado kentang, ayam goreng, mie, dan kerupuk Finna.",
+        "isi": [
+            "Nasi kuning",
+            "balado kentang",
+            "ayam goreng",
+            "mie",
+            "kerupuk Finna"
+        ],
+        "harga": 25000,
+        "harga20plus": 23000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box 18×18",
+        "foto": {
+            "src": "/images/menu/nasi-kuning-sultan-balado.webp",
+            "placeholder": true,
+            "inisial": "NK",
+            "alt": "Nasi Kuning Sultan Balado Dapoer Uni: nasi kuning, balado kentang, ayam goreng, mie, dan kerupuk Finna"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 4
+    },
+    {
+        "id": "sultan-empal",
+        "tier": "sultan",
+        "nama": "Sultan Empal",
+        "deskripsi": "Sultan Empal termasuk Paket Sultan, untuk tamu istimewa dan acara besar. Satu kotak berisi nasi, empal daging, mie, sambal goreng kentang, kerupuk, dan acar timun kuning.",
+        "isi": [
+            "Nasi",
+            "empal daging",
+            "mie",
+            "sambal goreng kentang",
+            "kerupuk",
+            "acar timun kuning"
+        ],
+        "harga": 30000,
+        "harga20plus": 27000,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box 18×18",
+        "foto": {
+            "src": "/images/menu/sultan-empal.webp",
+            "placeholder": true,
+            "inisial": "SE",
+            "alt": "Sultan Empal Dapoer Uni: nasi, empal daging, mie, sambal goreng kentang, kerupuk, dan acar timun kuning"
+        },
+        "label": null,
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 5
+    },
+    {
+        "id": "hampers-sultan",
+        "tier": "sultan",
+        "nama": "Hampers Sultan",
+        "deskripsi": "Hampers Sultan termasuk Paket Sultan, untuk tamu istimewa dan acara besar. Satu kotak berisi nasi kuning, mie, ayam, kerupuk Finna, dan sinom 250 ml.",
+        "isi": [
+            "Nasi kuning",
+            "mie",
+            "ayam",
+            "kerupuk Finna",
+            "sinom 250 ml"
+        ],
+        "harga": 60000,
+        "harga20plus": null,
+        "satuan": "kotak",
+        "minimalOrder": 10,
+        "kemasan": "Box 18×18",
+        "foto": {
+            "src": "/images/menu/hampers-sultan.webp",
+            "placeholder": true,
+            "inisial": "HS",
+            "alt": "Hampers Sultan Dapoer Uni: nasi kuning, mie, ayam, kerupuk Finna, dan sinom 250 ml"
+        },
+        "label": "Hampers",
+        "catatan": "Box kraft berjendela dengan pita dan kartu ucapan.",
+        "tersedia": true,
+        "urutan": 6
+    },
+    {
+        "id": "tampah-nasi-kuning-5",
+        "nama": "Tampah Nasi Kuning",
+        "deskripsi": "Tampah nasi kuning untuk 5 orang, cocok untuk ulang tahun dan syukuran keluarga.",
+        "isi": [
+            "Nasi kuning",
+            "ayam goreng/panggang",
+            "ayam balado",
+            "mie",
+            "telur dadar iris",
+            "perkedel",
+            "sambal",
+            "hiasan"
+        ],
+        "porsi": 5,
+        "harga": 200000,
+        "satuan": "tampah",
+        "minimalOrder": 1,
+        "foto": {
+            "src": "/images/menu/tampah-nasi-kuning-5.webp",
+            "placeholder": true,
+            "inisial": "TN",
+            "alt": "Tampah nasi kuning Dapoer Uni untuk 5 orang"
+        },
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 1,
+        "tier": "tampah",
+        "harga20plus": null,
+        "kemasan": null,
+        "label": null
+    },
+    {
+        "id": "tumpeng-10",
+        "nama": "Tumpeng 10 Orang",
+        "deskripsi": "Tumpeng untuk 10 orang, isi menyesuaikan pesanan.",
+        "isi": [
+            "Isi menyesuaikan pesanan"
+        ],
+        "porsi": 10,
+        "harga": 400000,
+        "satuan": "tumpeng",
+        "minimalOrder": 1,
+        "foto": {
+            "src": "/images/menu/tumpeng-10.webp",
+            "placeholder": true,
+            "inisial": "TP",
+            "alt": "Tumpeng Dapoer Uni untuk 10 orang"
+        },
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 2,
+        "tier": "tumpeng",
+        "harga20plus": null,
+        "kemasan": null,
+        "label": null
+    },
+    {
+        "id": "tumpeng-20",
+        "nama": "Tumpeng 20 Orang",
+        "deskripsi": "Tumpeng untuk 20 orang, isi menyesuaikan pesanan.",
+        "isi": [
+            "Isi menyesuaikan pesanan"
+        ],
+        "porsi": 20,
+        "harga": 750000,
+        "satuan": "tumpeng",
+        "minimalOrder": 1,
+        "foto": {
+            "src": "/images/menu/tumpeng-20.webp",
+            "placeholder": true,
+            "inisial": "TP",
+            "alt": "Tumpeng Dapoer Uni untuk 20 orang"
+        },
+        "catatan": null,
+        "tersedia": true,
+        "urutan": 3,
+        "tier": "tumpeng",
+        "harga20plus": null,
+        "kemasan": null,
+        "label": null
+    }
+]

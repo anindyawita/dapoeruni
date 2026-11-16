@@ -1,4 +1,4 @@
-export type Tier = "hemat" | "rakyat" | "juragan" | "sultan";
+export type Tier = "hemat" | "rakyat" | "juragan" | "sultan" | "tampah" | "tumpeng";
 
 export interface MenuItem {
   id: string; // slug, mis. "ayam-panggang-rujak"
@@ -7,7 +7,11 @@ export interface MenuItem {
   isi: string[]; // daftar isi kotak, ditampilkan sebagai chip
   harga: number | null; // null = "Harga menyusul"
   harga20plus?: number; // harga khusus untuk 20 kotak ke atas (opsional)
-  minimalOrder: number; // default 10
+  satuan: string; // "kotak", "tampah", "tumpeng"
+  minimalOrder: number; // default 10 untuk kotak, 1 untuk tampah/tumpeng
+  porsi?: number; // jumlah orang (tampah/tumpeng)
+  kemasan?: string;
+  catatan?: string;
   foto?: string; // nama file di public/images/menu tanpa ukuran & ekstensi; kosong = placeholder
   tersedia: boolean; // false = disembunyikan dari katalog
   urutan: number;

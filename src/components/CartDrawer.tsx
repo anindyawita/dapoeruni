@@ -33,7 +33,7 @@ function Ringkas({ r }: { r: Ringkasan }) {
         <dt>Sisa pelunasan</dt>
         <dd>{formatRupiah(r.sisa)}</dd>
       </div>
-      <p className="ck-sum__note">Belum termasuk ongkir GoFood (dihitung admin sesuai jarak).</p>
+      <p className="ck-sum__note">Belum termasuk ongkir (dihitung admin sesuai jarak).</p>
     </dl>
   );
 }
@@ -63,8 +63,8 @@ function Baris({ row }: { row: CartRow }) {
           {satuan === null
             ? "Harga menyusul"
             : addOn
-              ? `${formatRupiah(dasar ?? 0)} + ${formatRupiah(addOn)} add-on = ${formatRupiah(satuan)} / kotak`
-              : `${formatRupiah(satuan)} / kotak`}
+              ? `${formatRupiah(dasar ?? 0)} + ${formatRupiah(addOn)} add-on = ${formatRupiah(satuan)} / ${item.satuan}`
+              : `${formatRupiah(satuan)} / ${item.satuan}`}
           {pakai20 && " · harga 20+"}
         </p>
       </div>
@@ -72,7 +72,7 @@ function Baris({ row }: { row: CartRow }) {
         <CloseIcon />
       </button>
       <div className="cl__row">
-        <QtyStepper small value={line.qty} onChange={(n) => setQty(line.key, n)} label={`Jumlah kotak ${item.nama}`} />
+        <QtyStepper small value={line.qty} onChange={(n) => setQty(line.key, n)} label={`Jumlah ${item.satuan} ${item.nama}`} />
         <p className="cl__sub">{subtotal === null ? "–" : formatRupiah(subtotal)}</p>
       </div>
     </li>
@@ -93,7 +93,7 @@ function StepKeranjang({ r, foot }: { r: Ringkasan; foot: (n: ReactNode) => Reac
               <h3>Paket {g.nama}</h3>
               {g.kotak > 0 && (
                 <span className={g.kurang ? "cg__warn" : "cg__ok"}>
-                  {g.kotak} kotak{g.kurang ? ` · kurang ${g.kurang}` : " ✓"}
+                  {g.kotak} {g.satuan}{g.kurang ? ` · kurang ${g.kurang}` : " ✓"}
                 </span>
               )}
             </div>
@@ -285,7 +285,7 @@ function StepInvoice({ r, foot }: { r: Ringkasan; foot: (n: ReactNode) => ReactN
           <header className="inv__head">
             <div>
               <p className="inv__brand">{s.namaBrand}</p>
-              <p className="inv__muted">Katering rumahan halal · {s.kota}</p>
+              <p className="inv__muted">Katering untuk semua acara kamu · {s.kota}</p>
             </div>
             <div className="inv__no">
               <p>INVOICE</p>
@@ -323,7 +323,7 @@ function StepInvoice({ r, foot }: { r: Ringkasan; foot: (n: ReactNode) => ReactN
                       <p className="inv__muted">Add-on: {x.addOns.map((a) => `${a.nama} (+${formatRupiah(a.harga)})`).join(", ")}</p>
                     )}
                     <p className="inv__muted">
-                      {x.line.qty} kotak × {x.satuan === null ? "harga menyusul" : formatRupiah(x.satuan)}
+                      {x.line.qty} {x.item.satuan} × {x.satuan === null ? "harga menyusul" : formatRupiah(x.satuan)}
                       {x.pakai20 ? " (harga 20+)" : ""}
                     </p>
                   </li>
@@ -349,7 +349,7 @@ function StepInvoice({ r, foot }: { r: Ringkasan; foot: (n: ReactNode) => ReactN
               <dd>{p.metode}</dd>
             </div>
           </dl>
-          <p className="inv__muted inv__foot">Ongkir GoFood dihitung admin sesuai jarak (belum termasuk).</p>
+          <p className="inv__muted inv__foot">Ongkir dihitung admin sesuai jarak (belum termasuk).</p>
           {p.catatan.trim() && <p className="inv__note">Catatan: {p.catatan.trim()}</p>}
         </article>
         <p className="drawer__hint ck-info">{s.checkout.catatanBayar}</p>

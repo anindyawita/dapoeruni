@@ -15,9 +15,11 @@ export function HomePage() {
     <>
       <Header page="home" />
       <main>
-        <Hero />
+        <div className="tiles hero-about">
+          <Hero />
+          <About />
+        </div>
         <PaketTeaser />
-        <About />
         <JumatBerkah />
         <Testimonials />
         <InstagramStrip />

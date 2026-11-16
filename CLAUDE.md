@@ -51,7 +51,7 @@ scripts/prerender.mjs      # isi HTML statis setelah build
 vercel.json
 public/
   images/                  # semua foto WebP, beberapa ukuran per foto (srcset)
-    hero/ paket/ menu/ deco/ ig/
+    hero/ paket/ menu/ ig/
   og-image.jpg             # gambar preview saat link dibagikan
   favicon.svg, robots.txt
 src/
@@ -80,7 +80,7 @@ src/
     InstagramStrip, ClosingCTA, Footer, FloatingWA,
     MenuHeader (header "Menu Kami" + intro), TierFilter, MenuGrid, MenuCard, OrderInfo,
     MenuDetail (panel detail), CartProvider, CartDrawer, CartBar, QtyStepper,
-    Badge (logo sementara), Reveal, SmoothScroll, icons
+    Badge (logo), Reveal, SmoothScroll, icons
 ```
 
 Komponen **tidak boleh** mengimpor `menu.ts` atau `settings.ts` langsung. Semua data lewat `src/data/source.ts`, supaya nanti cukup mengganti isi `source.ts` untuk membaca Google Sheets.
@@ -154,9 +154,9 @@ Rentang harga per tingkat di beranda dihitung otomatis dari data menu (`getTierS
 
 - **Minimal order 10 kotak** per tingkat. Boleh campur varian dalam satu tingkat.
 - **Harga 20+ kotak** hanya untuk menu yang punya `harga20plus`. Tampilkan kedua harga dengan jelas, jangan hanya "mulai Rp15.000".
-- **Ongkir tidak termasuk harga.** Dikirim via GoFood, tarif sesuai jarak, dibayar pemesan.
+- **Ongkir tidak termasuk harga.** Tarif sesuai jarak, dibayar pemesan. Jangan menyebut GoFood.
 - **Pesan paling lambat H-3.**
-- Halal, masakan rumahan, dimasak sesuai pesanan.
+- Halal, dimasak sesuai pesanan. Jangan memakai kata "rumahan"; tagline: "Katering untuk semua acara kamu".
 - **Paket Custom**: pelanggan menyebutkan budget, Dapoer Uni bantu menyesuaikan isi kotak.
 - **Add-on** dihitung per kotak: harga per kotak = harga menu + total add-on yang dipilih.
 - **DP 50%** dari total pesanan (belum termasuk ongkir), sisanya pelunasan. Metode bayar dipilih pelanggan: Tunai atau Non-tunai. Cara bayar dikonfirmasi admin lewat WhatsApp.
@@ -192,9 +192,9 @@ Semua link membuka `https://wa.me/6285733045249?text=<pesan>` (di-`encodeURIComp
 Referensi struktur & rasa: https://www.banhmiandyou.com/ (beranda dan halaman Speisekarte). Yang ditiru: tombol navigasi berbentuk pil, hero foto makanan di atas meja ubin dengan judul display raksasa, lingkaran foto bertabel miring, header halaman menu bertuliskan kata raksasa yang terpotong, blok gelap bersudut membulat, kolase foto melengkung ke Instagram, footer dengan nama brand raksasa, butiran kertas (grain). **Jangan** menyalin teks, foto, logo, atau aset mereka.
 
 Ciri Dapoer Uni:
-- Meja ubin **espresso** (pengganti ubin hijau referensi), kotak kraft dan besek hasil hapus-latar dari foto asli, nasi kuning sebagai dekorasi.
+- Meja ubin **espresso** (pengganti ubin hijau referensi), kotak kraft dan besek hasil hapus-latar dari foto asli.
 - Kata "Uni" ditulis **serif miring emas** seperti logo di label besek.
-- Logo bulat di header (`Badge.tsx`) adalah gambar ulang sementara dari label "Dapoer Uni" (ikon tudung saji emas). Ganti dengan file logo asli bila sudah ada.
+- Logo bulat di header dan footer (`Badge.tsx`) memakai `public/images/logo-240.webp`, logo asli yang sudah dipotong lingkaran (alpha transparan di sudut). Untuk mengganti, simpan file bulat 240×240 dengan nama sama.
 
 Palet (dari feed Instagram, ada di `@theme` pada `src/index.css`):
 
@@ -253,15 +253,15 @@ Aturan performa:
 ## Urutan section
 
 **Beranda (`/`)**
-1. Header: logo bulat, pil Menu · Tentang · Jumat Berkah · Kontak, pil emas "Chat WA". Di HP: satu pil "Menu" yang membuka menu layar penuh.
+1. Header: logo bulat, pil Home · Menu, pil emas "Chat WA". Di HP: satu pil "Menu" yang membuka menu layar penuh.
 2. Hero (V3 revisi, pilihan pemilik): kelompok atas rata kiri dengan logo ("Dapoer", subjudul 2 baris, tombol "Lihat Menu" & "Chat WA"); kelompok bawah menempel ke dasar hero: kotak kraft besar 580px di tengah (tepi depan tepat +24°), tumpeng di kiri bawah (kerucut tegak, potongan foto di luar layar), rice bowl 400px di kanan, dan "*Uni*" emas rata kanan dengan tombol Chat WA di header. Tanpa stiker. Angka posisi diambil dari mockup yang diukur per piksel (frame 1440×900 desktop, 390×844 HP); tulisan tidak boleh tersentuh foto (jarak minimal ±37px). Foto kotak memakai versi dengan sudut kanan bawah yang direkonstruksi; tumpeng & rice bowl dipertajam (EDSR).
-3. Paket Nasi Kotak: 4 lingkaran tingkat dengan label "Paket X · Rp...–...", tombol "Lihat semua menu", lalu banner **Paket Custom**.
-4. Tentang Kami: cerita besar + "Rumahan. Halal. Sesuai Budget." + foto melengkung bertag + 3 kartu nilai.
+3. Tentang Kami: cerita besar + "Fresh. Halal. Sesuai Budget." + foto melengkung bertag + 3 kartu nilai.
+4. Paket Nasi Kotak: 4 lingkaran tingkat dengan label "Paket X · Rp...–...", tombol "Lihat semua menu", lalu banner **Paket Custom**.
 5. Jumat Berkah (blok gelap): penjelasan + tombol WA khusus. Jangan menulis angka penerima/masjid.
 6. Testimoni (marquee). Selama `settings.testimoni` kosong, tampil kartu placeholder `[testimoni asli pelanggan, dengan izin]`.
 7. Instagram: kolase foto melengkung ke `@dapoerunisurabaya`.
 8. Penutup: "Siap pesan untuk acara Anda?" + tombol.
-9. Footer: logo, navigasi, info (Surabaya, H-3, min. 10 kotak), tombol WA & IG, "Dapoer *Uni*" raksasa, © tahun.
+9. Footer: logo, navigasi, info (Surabaya saja), tombol WA & IG, "Dapoer *Uni*" raksasa, © tahun.
 
 **Menu (`/menu`)**
 1. Header gelap "Menu *Kami*" (kata raksasa terpotong).

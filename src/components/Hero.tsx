@@ -47,13 +47,13 @@ export function Hero() {
     transition: reduce ? fadeOnly : { duration: dur.slow, ease, delay },
   });
 
-  // "Katering rumahan halal · min. 10 kotak · order H-3" → dua baris di desktop, satu baris di HP
+  // subjudul boleh berisi " · ": dua baris di desktop, satu baris di HP
   const [sub1, ...subRest] = s.hero.subjudul.split(" · ");
 
   return (
-    <section ref={ref} className="hero tiles" id="top">
+    <section ref={ref} className="hero" id="top">
       <h1 className="sr-only">
-        {s.namaBrand}, katering rumahan halal {s.kota}
+        {s.namaBrand}, katering halal {s.kota}
       </h1>
 
       <motion.div className="hero__item hero__item--tumpeng" style={parallax ? { y: yTumpeng } : undefined}>

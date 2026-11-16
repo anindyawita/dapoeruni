@@ -25,16 +25,6 @@ export function PaketTeaser() {
         <RevealGroup className="center">
           <RevealItem>
             <div className="headdeco">
-              <img
-                className="headdeco__nk"
-                src="/images/deco/nasi-kuning-240.webp"
-                width={240}
-                height={243}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                decoding="async"
-              />
               <h2 className="h-display">{s.paket.judul}</h2>
               <Burst className="headdeco__burst" />
             </div>

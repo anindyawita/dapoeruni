@@ -61,7 +61,11 @@ export function MenuCard({ item }: { item: MenuItem }) {
         {item.harga !== null ? (
           <p className="price">
             {formatRupiah(item.harga)}
-            {item.harga20plus !== undefined && <small>{item.minimalOrder}–19 kotak</small>}
+            {item.harga20plus !== undefined ? (
+              <small>{item.minimalOrder}–19 kotak</small>
+            ) : (
+              item.satuan !== "kotak" && <small>/ {item.satuan}</small>
+            )}
           </p>
         ) : (
           <p className="price price--soon">Harga menyusul</p>
@@ -69,11 +73,11 @@ export function MenuCard({ item }: { item: MenuItem }) {
         {item.harga20plus !== undefined && (
           <p className="price20">{formatRupiah(item.harga20plus)} untuk 20+ kotak</p>
         )}
-        <p className="min">Min. {item.minimalOrder} kotak</p>
+        <p className="min">Min. {item.minimalOrder} {item.satuan}</p>
         {inCart > 0 ? (
           <button type="button" className="pill pill--dark pill--sm pill--block card__btn" onClick={() => setDrawerOpen(true)}>
             <CheckIcon />
-            Di keranjang · {inCart} kotak
+            Di keranjang · {inCart} {item.satuan}
           </button>
         ) : (
           <button

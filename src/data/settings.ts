@@ -39,10 +39,13 @@ export const settings: Settings = {
       foto: "sultan",
       fotoAlt: "Besek bambu berpita berisi ayam panggang, telur, dan lalapan",
     },
+    // bukan paket nasi kotak: hanya tampil di katalog /menu (tanpa foto beranda)
+    { id: "tampah", nama: "Tampah", deskripsi: "Nasi kuning satu tampah untuk acara keluarga.", foto: "", fotoAlt: "" },
+    { id: "tumpeng", nama: "Tumpeng", deskripsi: "Tumpeng untuk syukuran, isi menyesuaikan pesanan.", foto: "", fotoAlt: "" },
   ],
 
   hero: {
-    subjudul: "Katering rumahan halal · min. 10 kotak · order H-3",
+    subjudul: "Katering untuk semua acara kamu",
   },
 
   paket: {
@@ -54,16 +57,16 @@ export const settings: Settings = {
   menuPage: {
     judul: "Pilihan Nasi Kotak",
     intro:
-      "Empat tingkat paket, harga per kotak. Minimal 10 kotak, boleh campur varian dalam satu tingkat. Ongkir tidak termasuk, dikirim via GoFood sesuai jarak.",
+      "Empat tingkat paket, harga per kotak. Minimal 10 kotak, boleh campur varian dalam satu tingkat. Ongkir tidak termasuk, sesuai jarak.",
   },
 
-  nilai: ["Rumahan", "Halal", "Sesuai Budget"],
+  nilai: ["Fresh", "Halal", "Sesuai Budget"],
   cerita:
-    "Dapoer Uni adalah katering rumahan halal di Surabaya. Setiap kotak dimasak sesuai pesanan, dengan isi yang bisa diatur sesuai budget, untuk arisan, syukuran, pengajian, rapat kantor, sampai berbagi di hari Jumat.",
+    "Dapoer Uni adalah katering halal di Surabaya untuk semua acara kamu. Setiap kotak dimasak sesuai pesanan, dengan isi yang bisa diatur sesuai budget, untuk arisan, syukuran, pengajian, rapat kantor, sampai berbagi di hari Jumat.",
   tentang: {
     eyebrow: "Tentang Kami",
     nilaiDetail: [
-      { judul: "Rumahan", teks: "Masakan rumahan yang dimasak sesuai pesanan untuk setiap acara." },
+      { judul: "Fresh", teks: "Dimasak sesuai pesanan untuk setiap acara." },
       { judul: "Halal", teks: "Katering halal untuk pengajian, syukuran, arisan, sampai rapat kantor." },
       { judul: "Sesuai Budget", teks: "Empat tingkat paket mulai {hargaMin} per kotak, atau paket custom sesuai budget Anda." },
     ],
@@ -85,9 +88,9 @@ export const settings: Settings = {
   ketentuan: [
     { judul: "Minimal order", isi: "10 kotak untuk semua paket. Boleh campur varian dalam satu tingkat." },
     { judul: "Batas pesan", isi: "Paling lambat H-3 sebelum acara." },
-    { judul: "Ongkir", isi: "Tidak termasuk harga. Dikirim via GoFood, tarif sesuai jarak, dibayar pemesan." },
+    { judul: "Ongkir", isi: "Tidak termasuk harga. Tarif sesuai jarak, dibayar pemesan." },
     { judul: "Harga 20+ kotak", isi: "Hanya berlaku untuk menu yang mencantumkannya." },
-    { judul: "Halal & rumahan", isi: "Masakan rumahan, dimasak sesuai pesanan." },
+    { judul: "Halal & fresh", isi: "Masakan halal, dimasak sesuai pesanan." },
   ],
 
   caraOrderIntro: "Pesan langsung lewat WhatsApp, paling lambat H-3 sebelum acara.",
@@ -95,7 +98,7 @@ export const settings: Settings = {
     { judul: "Pilih menu", teks: "Lihat paket di katalog dan pilih yang pas untuk acara Anda." },
     { judul: "Chat WhatsApp", teks: "Tekan tombol pesan, pesan otomatis langsung terisi." },
     { judul: "Konfirmasi jumlah & tanggal", teks: "Sebutkan jumlah kotak dan tanggal acara, paling lambat H-3." },
-    { judul: "Dikirim via GoFood", teks: "Pesanan diantar ke lokasi, ongkir sesuai jarak." },
+    { judul: "Diantar ke lokasi", teks: "Pesanan diantar ke lokasi, ongkir sesuai jarak." },
   ],
 
   jumatBerkah: {
@@ -105,7 +108,7 @@ export const settings: Settings = {
       "Ingin berbagi nasi kotak di hari Jumat? Pesan saja jumlahnya, Dapoer Uni bantu salurkan ke masjid.",
       "Paket Hemat cocok untuk Jumat Berkah. Minimal 10 kotak, pesan paling lambat H-3.",
     ],
-    stiker: ["Rumahan", "Halal", "Berkah"],
+    stiker: ["Fresh", "Halal", "Berkah"],
   },
 
   // Harga add-on dari pemilik, dihitung per kotak.
@@ -137,7 +140,7 @@ export const settings: Settings = {
     { src: "/images/ig/6-600.webp", alt: "Tumpeng mini dengan lauk" },
   ],
 
-  footerInfo: ["Surabaya", "Order paling lambat H-3", "Min. 10 kotak · ongkir via GoFood"],
+  footerInfo: ["Surabaya"],
 
   pesanWA: {
     umum: "Halo Dapoer Uni, saya lihat dari website. Mau tanya katering.",

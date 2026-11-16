@@ -72,6 +72,7 @@ function DetailPanel({ item }: { item: MenuItem }) {
   const reduce = useReducedMotion();
   const s = getSettings();
   const tier = getTierInfo(item.tier);
+  const kotak = item.satuan === "kotak";
   const diKeranjang = lines.filter((l) => l.id === item.id).reduce((n, l) => n + l.qty, 0);
   const [qty, setQty] = useState(item.minimalOrder);
   const [addOns, setAddOns] = useState<string[]>([]);
@@ -140,7 +141,7 @@ function DetailPanel({ item }: { item: MenuItem }) {
           {item.label && <p className="card__note">{item.label}</p>}
           <p className="detail__desc">{getDeskripsi(item)}</p>
 
-          <h3 className="detail__sub">Isi kotak</h3>
+          <h3 className="detail__sub">{kotak ? "Isi kotak" : "Isi"}</h3>
           <ul className="detail__isi">
             {item.isi.map((x) => (
               <li key={x}>
@@ -154,7 +155,7 @@ function DetailPanel({ item }: { item: MenuItem }) {
             {item.harga !== null ? (
               <>
                 <p>
-                  <strong>{formatRupiah(item.harga)}</strong> / kotak
+                  <strong>{formatRupiah(item.harga)}</strong> / {item.satuan}
                   {item.harga20plus !== undefined && ` (${item.minimalOrder}–19 kotak)`}
                 </p>
                 {item.harga20plus !== undefined && (
@@ -169,17 +170,23 @@ function DetailPanel({ item }: { item: MenuItem }) {
           </div>
 
           <ul className="detail__rules">
-            <li>Minimal {item.minimalOrder} kotak per tingkat, boleh campur varian Paket {tier.nama}.</li>
+            {kotak ? (
+              <li>Minimal {item.minimalOrder} kotak per tingkat, boleh campur varian Paket {tier.nama}.</li>
+            ) : (
+              <li>Minimal {item.minimalOrder} {item.satuan}.</li>
+            )}
+            {item.kemasan && <li>Kemasan: {item.kemasan}.</li>}
+            {item.catatan && <li>{item.catatan}</li>}
             <li>{s.ketentuan.find((k) => k.judul === "Batas pesan")?.isi ?? "Pesan paling lambat H-3."}</li>
-            <li>Ongkir via GoFood sesuai jarak, belum termasuk harga.</li>
+            <li>Ongkir sesuai jarak, belum termasuk harga.</li>
           </ul>
 
-          <AddOnPicker value={addOns} onChange={setAddOns} />
+          {kotak && <AddOnPicker value={addOns} onChange={setAddOns} />}
 
           <div className="detail__buy">
             <div className="detail__qty">
-              <span>Jumlah kotak</span>
-              <QtyStepper value={qty} onChange={setQty} label={`Jumlah kotak ${item.nama}`} />
+              <span>Jumlah {item.satuan}</span>
+              <QtyStepper value={qty} onChange={setQty} label={`Jumlah ${item.satuan} ${item.nama}`} />
             </div>
             {satuan !== null && (
               <p className="detail__subtotal">
@@ -203,7 +210,7 @@ function DetailPanel({ item }: { item: MenuItem }) {
               <BasketIcon />
               Masukkan keranjang
             </button>
-            {diKeranjang > 0 && <p className="detail__incart">Sudah di keranjang: {diKeranjang} kotak</p>}
+            {diKeranjang > 0 && <p className="detail__incart">Sudah di keranjang: {diKeranjang} {item.satuan}</p>}
             <a className="detail__wa" href={waMenu(item)} {...external}>
               <WhatsAppIcon />
               Tanya menu ini via WhatsApp

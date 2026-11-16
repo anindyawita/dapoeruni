@@ -15,7 +15,8 @@ export function waUmum(): string {
 export function waMenu(item: MenuItem): string {
   const pesan = getSettings()
     .pesanWA.menu.replace("{nama}", item.nama)
-    .replace("{tingkat}", getTierInfo(item.tier).nama);
+    .replace("{tingkat}", getTierInfo(item.tier).nama)
+    .replace("___ kotak", `___ ${item.satuan}`);
   return link(pesan);
 }
 

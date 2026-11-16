@@ -53,7 +53,7 @@ export function teksInvoice(r: Ringkasan, p: Pemesan, nomor: string, dibuat: Dat
   for (const g of r.groups) {
     for (const x of g.rows) {
       if (!x.line.checked) continue;
-      b.push(`${no++}. ${x.item.nama} (Paket ${getTierInfo(x.item.tier).nama}), ${x.line.qty} kotak`);
+      b.push(`${no++}. ${x.item.nama} (Paket ${getTierInfo(x.item.tier).nama}), ${x.line.qty} ${x.item.satuan}`);
       if (x.addOns.length) b.push(`   Add-on: ${x.addOns.map((a) => `${a.nama} (+${formatRupiah(a.harga)})`).join(", ")}`);
       if (x.satuan === null) {
         b.push("   Harga: menyusul");
@@ -61,7 +61,7 @@ export function teksInvoice(r: Ringkasan, p: Pemesan, nomor: string, dibuat: Dat
         const rincian = x.addOn
           ? `${formatRupiah(x.dasar ?? 0)}${x.pakai20 ? " harga 20+" : ""} + add-on ${formatRupiah(x.addOn)} = ${formatRupiah(x.satuan)}`
           : `${formatRupiah(x.satuan)}${x.pakai20 ? " (harga 20+)" : ""}`;
-        b.push(`   ${rincian} per kotak`);
+        b.push(`   ${rincian} per ${x.item.satuan}`);
         b.push(`   Subtotal: ${formatRupiah(x.subtotal ?? 0)}`);
       }
     }
@@ -71,7 +71,7 @@ export function teksInvoice(r: Ringkasan, p: Pemesan, nomor: string, dibuat: Dat
   b.push(`DP ${s.checkout.dpPersen}%: ${formatRupiah(r.dp)}`);
   b.push(`Sisa pelunasan: ${formatRupiah(r.sisa)}`);
   b.push(`Metode pembayaran: ${p.metode}`);
-  b.push("Ongkir GoFood: dihitung admin sesuai jarak (belum termasuk).");
+  b.push("Ongkir: dihitung admin sesuai jarak (belum termasuk).");
   if (p.catatan.trim()) {
     b.push("");
     b.push(`Catatan: ${bersih(p.catatan, 300)}`);

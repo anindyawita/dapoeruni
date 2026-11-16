@@ -5,7 +5,7 @@ import {
   getMenuById,
   getSettings,
   getTierInfo,
-  TIER_ORDER,
+  CATALOG_ORDER,
   type AddOn,
   type MenuItem,
   type Tier,
@@ -112,6 +112,7 @@ export interface CartRow {
 export interface CartGroup {
   tier: Tier;
   nama: string;
+  satuan: string;
   rows: CartRow[];
   /** total kotak yang dicentang di tingkat ini */
   kotak: number;
@@ -143,7 +144,7 @@ export function ringkas(lines: CartLine[]): Ringkasan {
   let jumlahDicentang = 0;
   let adaHargaMenyusul = false;
 
-  for (const tier of TIER_ORDER) {
+  for (const tier of CATALOG_ORDER) {
     const rows: CartRow[] = [];
     for (const line of lines) {
       const item = getMenuById(line.id);
@@ -175,6 +176,7 @@ export function ringkas(lines: CartLine[]): Ringkasan {
     groups.push({
       tier,
       nama: getTierInfo(tier).nama,
+      satuan: rows[0].item.satuan,
       rows,
       kotak,
       minimal,

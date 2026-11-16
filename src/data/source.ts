@@ -9,6 +9,8 @@ import type { AddOn, MenuItem, Settings, Tier, TierInfo } from "./types";
 export type { AddOn, Ketentuan, MenuItem, Settings, Tier, TierInfo } from "./types";
 
 export const TIER_ORDER: Tier[] = ["hemat", "rakyat", "juragan", "sultan"];
+/** Urutan di katalog dan keranjang: empat tingkat nasi kotak, lalu tampah dan tumpeng. */
+export const CATALOG_ORDER: Tier[] = [...TIER_ORDER, "tampah", "tumpeng"];
 
 /** Menu yang tersedia saja, terurut. */
 export function getMenu(): MenuItem[] {
